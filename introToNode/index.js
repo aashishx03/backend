@@ -34,7 +34,8 @@ import http from "http";
 // console.log("Data is adding");
 
 ///////////////////////////////////////////////
-/////// ADDING DATA TO EXISTING FILE (async way , but there is also a sync way we can use fs.opensync or we can also use async/await)
+/////// ADDING DATA TO EXISTING FILE
+// (async way , but there is also a sync way we can use fs.opensync or we can also use async/await)
 
 // const txtData = " This is the data i want to add part 5";
 
@@ -60,3 +61,14 @@ import http from "http";
 // fs.readFile("./text.txt", "utf-8", (err, data) => {
 //   console.log(data);
 // });
+
+///////////////////////////////////////////////////////
+////////// Server
+
+const server = http.createServer((req, res) => {
+  res.end("Hello node");
+});
+
+server.listen(3000, () => {
+  console.log("Server is listing on 3000");
+});
