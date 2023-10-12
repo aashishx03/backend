@@ -1,5 +1,6 @@
 import fs from "fs";
 import http from "http";
+import url from "url";
 
 ///////////////////////////////////////
 // READING FILE SYNCHRONOUSLY
@@ -66,7 +67,21 @@ import http from "http";
 ////////// Server
 
 const server = http.createServer((req, res) => {
-  res.end("Hello node");
+  const pathName = req.url;
+  if (pathName === "/" || pathName === "/overview") {
+    res.writeHead(200, {
+      "Content-type": "text/html",
+    });
+    res.end("<h1>This is an Overview Page</h1>");
+  } else if (pathName === "/product") {
+    res.end("This is the Product Page");
+  } else {
+    res.writeHead(404, {
+      "Content-type": "text/html",
+      "my-own-header": "hululu",
+    });
+    res.end("<h1>Page not Found</h1>");
+  }
 });
 
 server.listen(3000, () => {
