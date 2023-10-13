@@ -1,7 +1,10 @@
-import fs from "fs";
-import http from "http";
-import url from "url";
+// import fs from "fs";
+// import http from "http";
+// import url from "url";
 
+const fs = require("fs");
+const http = require("http");
+const url = require("url");
 ///////////////////////////////////////
 // READING FILE SYNCHRONOUSLY
 
@@ -66,15 +69,34 @@ import url from "url";
 ///////////////////////////////////////////////////////
 ////////// Server
 
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+
 const server = http.createServer((req, res) => {
   const pathName = req.url;
+
   if (pathName === "/" || pathName === "/overview") {
     res.writeHead(200, {
       "Content-type": "text/html",
     });
     res.end("<h1>This is an Overview Page</h1>");
   } else if (pathName === "/product") {
-    res.end("This is the Product Page");
+    res.writeHead(200, { "Content-type": "text/html" });
+    res.end("<h1>This is product page");
+  } else if (pathName === "/api") {
+    // fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
+    //   let jsonData = JSON.parse(data);
+    //   // res.end(JSON.stringify(jsonData));
+    //   // console.log(jsonData[2]);
+    //   res.writeHead(200, {
+    //     "Content-type": "application/json",
+    //   });
+
+    //   res.end(data);
+    // });
+    res.writeHead(200, {
+      "Content-type": "application/json",
+    });
+    res.end(data);
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",

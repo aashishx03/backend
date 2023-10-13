@@ -1,7 +1,7 @@
 {
   "name": "introtonode",
   "version": "1.0.0",
-  "type": "module",
+  "type": "commonjs",
   "description": "First section of backend course",
   "main": "index.js",
   "scripts": {
