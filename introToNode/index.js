@@ -71,17 +71,37 @@ const url = require("url");
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 
+const tempOverview = fs.readFileSync(
+  `${__dirname}/templates/template-overview.html`,
+  "utf-8"
+);
+
+const tempCard = fs.readFileSync(
+  `${__dirname}/templates/template-card.html`,
+  "utf-8"
+);
+
+const tempProduct = fs.readFileSync(
+  `${__dirname}/templates/template-product.html`,
+  "utf-8"
+);
+
 const server = http.createServer((req, res) => {
   const pathName = req.url;
 
+  // OVERVIEW PAGE
   if (pathName === "/" || pathName === "/overview") {
     res.writeHead(200, {
       "Content-type": "text/html",
     });
-    res.end("<h1>This is an Overview Page</h1>");
+    res.end(tempOverview);
+
+    // PRODUCT PAGE
   } else if (pathName === "/product") {
     res.writeHead(200, { "Content-type": "text/html" });
-    res.end("<h1>This is product page");
+    res.end(tempProduct);
+
+    // API
   } else if (pathName === "/api") {
     // fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
     //   let jsonData = JSON.parse(data);
@@ -97,6 +117,8 @@ const server = http.createServer((req, res) => {
       "Content-type": "application/json",
     });
     res.end(data);
+
+    // PAGE NOT FOUND
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
