@@ -1,8 +1,13 @@
 const fs = require("fs");
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 
 const PORT = 3000;
+
+// 1) MIDDLEWARES
+
+app.use(morgan("dev"));
 
 app.use(express.json());
 
@@ -26,6 +31,8 @@ const tours = JSON.parse(
     }
   )
 );
+
+// 2) ROUTE HANDELERS
 
 const getAllTours = (req, res) => {
   console.log(req.requestTime);
@@ -116,6 +123,8 @@ const deleteTour = (req, res) => {
 
 // app.delete("/api/v1/tours/:id", deleteTour);
 
+// 3) ROUTES
+
 app.route("/api/v1/tours").get(getAllTours).post(createTour);
 
 app
@@ -123,6 +132,8 @@ app
   .get(getTour)
   .patch(updateTour)
   .delete(deleteTour);
+
+// 4) CREATING SERVER
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
